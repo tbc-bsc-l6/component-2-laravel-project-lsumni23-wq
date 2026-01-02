@@ -1,23 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 
+Route::view('/', 'welcome');
 
-use App\Livewire\RegisterUser;
-use App\Livewire\LoginUser;
-use App\Livewire\SplashPage;
+Route::view('dashboard', 'dashboard')
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
-Route::get('/', SplashPage::class)->name('splash');
+Route::view('profile', 'profile')
+    ->middleware(['auth'])
+    ->name('profile');
 
-Route::get('/register', RegisterUser::class)->name('register');
-Route::get('/login', LoginUser::class)->name('login');
-
-
-Route::post('/logout', function () {
-	Auth::logout();
-	request()->session()->invalidate();
-	request()->session()->regenerateToken();
-	return redirect('/');
-})->name('logout');
-
+require __DIR__.'/auth.php';
