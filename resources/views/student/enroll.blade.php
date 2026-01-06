@@ -4,11 +4,26 @@
 @section('title', 'Enroll in Modules')
 @section('page-title', 'Enroll')
 
+@push('styles')
+<style>
+    .enroll-hero {
+        background: linear-gradient(135deg, #0ea5e9, #2563eb);
+        color: #fff;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .progress-sm {
+        height: 8px;
+    }
+</style>
+@endpush
+
 @section('content')
 
 {{-- Hero --}}
-<div class="mb-4 p-4 rounded-4 text-white"
-     style="background: linear-gradient(135deg, #0ea5e9, #2563eb);">
+<div class="enroll-hero">
     <h2 class="fw-bold mb-1">Enroll in Modules 🎓</h2>
     <p class="mb-0 opacity-75">
         Choose new modules and continue your learning journey.
@@ -80,33 +95,41 @@
                 @php
                     $enrolled = $module->activeStudents()->count();
                     $percentage = ($enrolled / 10) * 100;
+
+                    if ($percentage < 25) {
+                        $widthClass = 'w-25';
+                    } elseif ($percentage < 50) {
+                        $widthClass = 'w-50';
+                    } elseif ($percentage < 75) {
+                        $widthClass = 'w-75';
+                    } else {
+                        $widthClass = 'w-100';
+                    }
+
                     $spotsLeft = 10 - $enrolled;
                 @endphp
 
                 <div class="col-lg-4 col-md-6">
                     <div class="card border-0 shadow-sm h-100">
                         <div class="card-body d-flex flex-column">
-                            {{-- Title --}}
-                            <h5 class="fw-bold mb-2">
-                                {{ $module->module }}
-                            </h5>
 
-                            {{-- Capacity --}}
+                            <h5 class="fw-bold mb-2">{{ $module->module }}</h5>
+
                             <p class="text-muted small mb-2">
                                 <i class="bi bi-people me-1"></i>
                                 {{ $enrolled }} of 10 students enrolled
                             </p>
 
-                            {{-- Progress --}}
-                            <div class="progress mb-3" style="height: 8px;">
-                                <div class="progress-bar 
+                            {{-- Progress (NO INLINE STYLE) --}}
+                            <div class="progress progress-sm mb-3">
+                                <div
+                                    class="progress-bar {{ $widthClass }}
                                     {{ $percentage >= 90 ? 'bg-danger' : ($percentage >= 75 ? 'bg-warning' : 'bg-success') }}"
-                                    role="progressbar"
-                                    style="width: {{ $percentage }}%">
+                                    role="progressbar">
                                 </div>
                             </div>
 
-                            {{-- Availability Badge --}}
+                            {{-- Availability --}}
                             @if($spotsLeft > 0)
                                 <span class="badge bg-success mb-3 align-self-start">
                                     {{ $spotsLeft }} {{ Str::plural('spot', $spotsLeft) }} left
@@ -117,17 +140,19 @@
                                 </span>
                             @endif
 
-                            {{-- CTA --}}
+                            {{-- Enroll --}}
                             <form action="{{ route('student.enroll.store') }}" method="POST" class="mt-auto">
                                 @csrf
                                 <input type="hidden" name="module_id" value="{{ $module->id }}">
-                                <button type="submit"
-                                        class="btn btn-primary w-100"
-                                        {{ $spotsLeft === 0 ? 'disabled' : '' }}>
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary w-100"
+                                    {{ $spotsLeft === 0 ? 'disabled' : '' }}>
                                     <i class="bi bi-plus-circle me-1"></i>
                                     Enroll Now
                                 </button>
                             </form>
+
                         </div>
                     </div>
                 </div>
@@ -136,7 +161,7 @@
     @else
         <div class="alert alert-info rounded-4">
             <i class="bi bi-info-circle-fill me-1"></i>
-            No modules are available at the moment. Please check back later.
+            No modules are available at the moment.
         </div>
     @endif
 </div>
