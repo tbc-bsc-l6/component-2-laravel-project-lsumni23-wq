@@ -25,7 +25,7 @@
 {{-- Hero --}}
 <div class="teacher-hero">
     <h2 class="fw-bold mb-1">
-        Welcome back, {{ auth()->user()->name }} 👋
+        Welcome back, {{ auth()->user()->name }} 
     </h2>
     <p class="mb-0 opacity-75">
         Manage your assigned modules and students from here.

@@ -185,6 +185,14 @@
             </table>
         </div>
 
+        @if($students->hasPages())
+            <div class="card-footer bg-white border-top-0">
+                <div class="d-flex justify-content-center">
+                    {{ $students->links() }}
+                </div>
+            </div>
+        @endif
+
     </div>
 </div>
 

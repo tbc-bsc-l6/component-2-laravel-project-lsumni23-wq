@@ -33,10 +33,11 @@ class EnrollmentController extends Controller
         // Get available modules (not enrolled, available, not full)
         $availableModules = Module::where('is_available', true)
             ->whereNotIn('id', $enrolledModuleIds)
-            ->get()
-            ->filter(function($module) {
-                return !$module->isFull();
-            });
+            ->withCount(['enrollments as active_enrollments_count' => function ($query) {
+                $query->where('status', 'enrolled');
+            }])
+            ->havingRaw('active_enrollments_count < ?', [Module::MAX_STUDENTS])
+            ->paginate(10);
 
         return view('student.enroll', compact('availableModules', 'canEnroll', 'activeCount'));
     }

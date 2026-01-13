@@ -107,7 +107,7 @@
         <!-- Sidebar -->
         <nav class="col-md-2 sidebar p-0 d-none d-md-block">
             <div class="sidebar-header">
-                <h4>CMS</h4>
+                <h4>SumSchool</h4>
                 <small>{{ auth()->user()->role->role }}</small>
             </div>
 
@@ -131,7 +131,7 @@
 
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('profile.edit') }}">
                                 <i class="bi bi-person me-1"></i> Profile
                             </a>
                         </li>

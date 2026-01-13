@@ -9,7 +9,7 @@
 {{-- Page Header --}}
 <div class="card border-0 shadow-sm mb-4">
     <div class="card-body">
-        <h3 class="fw-bold mb-1">📜 Module History</h3>
+        <h3 class="fw-bold mb-1"> Module History</h3>
         <p class="text-muted mb-0">
             Review all completed modules and your performance.
         </p>
@@ -124,7 +124,7 @@
             <div class="p-4">
                 <div class="alert alert-info mb-0">
                     <i class="bi bi-info-circle-fill me-1"></i>
-                    You haven’t completed any modules yet. Keep learning 💪
+                    You haven’t completed any modules yet. Keep learning 
                 </div>
             </div>
         @endif

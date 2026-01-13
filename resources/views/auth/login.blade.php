@@ -119,7 +119,7 @@
 
     <!-- LEFT BRAND PANEL -->
     <div class="auth-left col-lg-5">
-        <h1>College Management System</h1>
+        <h1>SumSchool</h1>
         <p class="mt-3 opacity-75">
             Centralized platform for administrators, teachers, and students.
         </p>

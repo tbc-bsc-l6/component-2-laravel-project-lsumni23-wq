@@ -25,17 +25,30 @@
     <div class="card-body">
         <form action="{{ route('admin.teachers.index') }}" method="GET">
             <div class="row g-2 align-items-center">
-                <div class="col-md-8">
+                <div class="col-md-5">
                     <input type="text"
                            name="search"
                            class="form-control"
                            placeholder="Search by name or email…"
                            value="{{ request('search') }}">
                 </div>
+
+                <div class="col-md-3">
+                    <select class="form-select" name="module_id">
+                        <option value="">All Modules</option>
+                        @foreach($modules as $module)
+                            <option value="{{ $module->id }}"
+                                {{ request('module_id') == $module->id ? 'selected' : '' }}>
+                                {{ $module->module }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
                 <div class="col-md-4 text-md-end">
                     <button class="btn btn-primary me-2" type="submit">
-                        <i class="bi bi-search me-1"></i>
-                        Search
+                        <i class="bi bi-funnel me-1"></i>
+                        Filter
                     </button>
 
                     @if(request('search'))
@@ -196,6 +209,14 @@
 
             </table>
         </div>
+
+        @if($teachers->hasPages())
+            <div class="card-footer bg-white border-top-0">
+                <div class="d-flex justify-content-center">
+                    {{ $teachers->links() }}
+                </div>
+            </div>
+        @endif
 
     </div>
 </div>

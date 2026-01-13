@@ -9,7 +9,7 @@
 {{-- Hero Section --}}
 <div class="mb-4 p-4 rounded-4 text-white"
      style="background: linear-gradient(135deg, #4f46e5, #6366f1);">
-    <h2 class="fw-bold mb-1">Welcome back, {{ auth()->user()->name }} 👋</h2>
+    <h2 class="fw-bold mb-1">Welcome back, {{ auth()->user()->name }} </h2>
     <p class="mb-0 opacity-75">
         Track your learning progress and manage your modules from here.
     </p>
@@ -81,7 +81,7 @@
 {{-- Active Modules --}}
 @if(auth()->user()->isStudent() && $activeEnrollments->count() > 0)
 <div class="mb-5">
-    <h4 class="fw-bold mb-3">📚 Active Modules</h4>
+    <h4 class="fw-bold mb-3"> Active Modules</h4>
 
     <div class="row g-4">
         @foreach($activeEnrollments as $enrollment)
@@ -158,7 +158,7 @@
 @if(auth()->user()->isStudent())
 <div class="alert alert-info rounded-4 mt-4">
     <i class="bi bi-info-circle-fill me-1"></i>
-    You haven’t completed any modules yet — keep going 💪
+    You haven’t completed any modules yet — keep going 
 </div>
 @endif
 @endif

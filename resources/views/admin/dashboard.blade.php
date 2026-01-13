@@ -81,7 +81,7 @@
         <div class="card border-0 shadow-sm">
             <div class="card-body d-flex justify-content-between align-items-center flex-wrap">
                 <div>
-                    <h5 class="fw-bold mb-1">Welcome back, Admin 👋</h5>
+                    <h5 class="fw-bold mb-1">Welcome back, Admin </h5>
                     <p class="text-muted mb-0">
                         Here’s a quick overview of what’s happening in your system today.
                     </p>

@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
 
 class UserRoleSeeder extends Seeder
 {
@@ -12,11 +14,10 @@ class UserRoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $roles = ['admin', 'teacher', 'student', 'old_student'];
+        $roles = ['admin', 'teacher', 'student','old_student'];
+
         foreach ($roles as $role) {
-            \App\Models\UserRole::create([
-                'role' => $role,
-            ]);
+            \App\Models\UserRole::firstOrCreate(['role' => $role]);
         }
     }
 }

@@ -15,9 +15,9 @@ class CheckTeacher
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check() || !auth()->user()->isTeacher()) {
-            abort(403, 'Unauthorized access');
-        }
-        return $next($request);
+         if (!auth()->check() || !auth()->user()->isTeacher()) {
+                abort(403, 'Unauthorized access');
+          }
+          return $next($request);
     }
 }

@@ -9,11 +9,17 @@ use App\Models\Module;
 class ModuleController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
-        $modules = Module::withCount(['activeStudents', 'teachers'])
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $query = Module::withCount(['activeStudents', 'teachers'])
+            ->orderBy('created_at', 'desc');
+
+        if ($request->has('search') && $request->search != '') {
+            $searchTerm = $request->search;
+            $query->where('module', 'like', '%' . $searchTerm . '%');
+        }
+
+        $modules = $query->paginate(10);
 
         return view('admin.modules.index', compact('modules'));
     }
@@ -31,6 +37,7 @@ class ModuleController extends Controller
 
         Module::create([
             'module' => $request->module,
+            'slug' => \Illuminate\Support\Str::slug($request->module),
             'is_available' => true,
         ]);
 

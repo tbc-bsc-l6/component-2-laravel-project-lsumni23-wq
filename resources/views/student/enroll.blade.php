@@ -24,7 +24,7 @@
 
 {{-- Hero --}}
 <div class="enroll-hero">
-    <h2 class="fw-bold mb-1">Enroll in Modules 🎓</h2>
+    <h2 class="fw-bold mb-1">Enroll in Modules </h2>
     <p class="mb-0 opacity-75">
         Choose new modules and continue your learning journey.
     </p>
@@ -87,13 +87,13 @@
 {{-- Available Modules --}}
 @if($canEnroll)
 <div class="mb-4">
-    <h4 class="fw-bold mb-3">📚 Available Modules</h4>
+    <h4 class="fw-bold mb-3"> Available Modules</h4>
 
     @if($availableModules->count() > 0)
         <div class="row g-4">
             @foreach($availableModules as $module)
                 @php
-                    $enrolled = $module->activeStudents()->count();
+                    $enrolled = $module->active_enrollments_count ?? 0;
                     $percentage = ($enrolled / 10) * 100;
 
                     if ($percentage < 25) {
@@ -158,6 +158,12 @@
                 </div>
             @endforeach
         </div>
+
+        @if($availableModules->hasPages())
+            <div class="d-flex justify-content-center mt-4">
+                {{ $availableModules->links() }}
+            </div>
+        @endif
     @else
         <div class="alert alert-info rounded-4">
             <i class="bi bi-info-circle-fill me-1"></i>

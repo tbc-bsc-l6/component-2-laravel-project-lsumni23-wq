@@ -17,12 +17,17 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+
+
+
     protected $fillable = [
         'name',
         'email',
         'password',
-        'user_role_id'
+        'user_role_id',
     ];
+
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -46,11 +51,51 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    /**
-     * Get the user role for the user.
-     */
-    public function userRole()
+    public function role()
     {
-        return $this->belongsTo(UserRole::class);
+        return $this->belongsTo(UserRole::class, 'user_role_id');
+    }
+
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class);
+    }
+
+    public function teacherModules()
+    {
+        return $this->hasMany(TeacherModule::class);
+    }
+
+    // Helper methods
+    public function isAdmin()
+    {
+        return $this->role->role === 'admin';
+    }
+
+    public function isTeacher()
+    {
+        return $this->role->role === 'teacher';
+    }
+
+    public function isStudent()
+    {
+        return $this->role->role === 'student';
+    }
+
+    public function isOldStudent()
+    {
+        return $this->role->role === 'old_student';
+    }
+
+    // Get active enrollments
+    public function activeEnrollments()
+    {
+        return $this->enrollments()->where('status', 'enrolled');
+    }
+
+    // Get completed modules
+    public function completedEnrollments()
+    {
+        return $this->enrollments()->whereIn('status', ['pass', 'fail']);
     }
 }

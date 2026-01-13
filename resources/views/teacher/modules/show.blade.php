@@ -75,9 +75,39 @@
 </div>
 
 {{-- Students Table --}}
+<!-- SEARCH -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+        <form action="{{ route('teacher.modules.show', $module) }}" method="GET">
+            <div class="row g-2 align-items-center">
+                <div class="col-md-8">
+                    <input type="text"
+                           name="search"
+                           class="form-control"
+                           placeholder="Search students by name or email…"
+                           value="{{ request('search') }}">
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <button class="btn btn-primary me-2" type="submit">
+                        <i class="bi bi-search me-1"></i>
+                        Search
+                    </button>
+
+                    @if(request('search'))
+                        <a href="{{ route('teacher.modules.show', $module) }}"
+                           class="btn btn-outline-secondary">
+                            Clear
+                        </a>
+                    @endif
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div class="card border-0 shadow-sm">
     <div class="card-header bg-transparent">
-        <h5 class="fw-bold mb-0">👨‍🎓 Enrolled Students</h5>
+        <h5 class="fw-bold mb-0"> Enrolled Students</h5>
     </div>
 
     <div class="card-body p-0">
